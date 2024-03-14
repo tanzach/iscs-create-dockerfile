@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-_txa0u+p1v#ai0g2md4hwq*h+&czj!sy!1@ddj4za3o2m5(0pd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'deploycloudrun-azd7qgomqq-uw.a.run.app']
 
 
 # Application definition

@@ -1,0 +1,66 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-12">
+
+    {% for message in messages %}
+        <div class="alert {% if message.tags %} {{message.tags}} {% endif %}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <table class="table table-striped">
+        <thead>
+            <div class="row py-2">
+                <div class="col d-flex justify-content-start align-items-center">
+                    <h1> Employees </h1>
+                </div>
+                <div class="col d-flex justify-content-end align-items-center">
+                    <a class="btn btn-secondary" href="{% url 'create_employee' %}" > +New Employee </a>
+                </div>
+            </div>
+            <tr>
+                <th class="table-dark" scope="col"> Name </th>
+                <th class="table-dark" scope="col"> ID Number </th>
+                <th class="table-dark" scope="col"> Rate </th>    
+                <th class="table-dark" scope="col"> Allowance </th>  
+                <th class="table-dark" scope="col"> Overtime </th>  
+                <th class="table-dark" scope="col"> Options </th>  
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in employee %}
+            <tr>
+                <td> {{e.name}} </td>
+                <td> {{e.id_number}} </td>
+                <td> {{e.rate}} </td>
+                <td> {{e.allowance}} </td>
+                <td> {{e.overtime_pay}} </td>
+                <td> 
+                    <div class="row"> 
+                        <div class="col d-flex justify-content-end align-items-center">
+                            <a style="margin-bottom:5px;" class="btn btn-primary" href="{% url 'update_employee' pk=e.pk %}"> Update </a>
+                        </div>
+                        <div class="col d-flex justify-content-start align-items-center"> 
+                            <a style="margin-bottom:5px;" class="btn btn-danger" href="{% url 'delete_employee' pk=e.pk %}"> Delete </a>
+                        </div>
+                    </div>
+
+                    <form method="POST" action="{% url 'add_overtime' pk=e.pk %}"> {% csrf_token %}
+                        <div class="row"> 
+                            <div class="col d-flex justify-content-end align-items-center">
+                                <input class="form-control" type="number" id="overtimehours" name="overtimehours" placeholder="Overtime Hours" required>
+                            </div>
+                            <div class="col d-flex justify-content-start align-items-center">
+                                <button type="submit" class="btn btn-success"> Add Overtime </a>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

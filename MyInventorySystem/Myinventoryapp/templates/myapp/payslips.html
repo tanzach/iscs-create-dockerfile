@@ -1,0 +1,135 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="col-12">
+
+    {% for message in messages %}
+        <div class="alert {% if message.tags %} {{message.tags}} {% endif %}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+                <h1> Payroll Creation </h1>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body"> 
+                <form method="POST" action="{% url 'create_payslip' %}"> {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="payrollfor" class="col-sm-2"> Payroll for: </label>
+                                <div class="col-sm-10">
+                                    <select class="form-control my-2" id="payrollfor" name="payrollfor" required>
+                                        <option value="" selected> Choose... </option>
+                                            <option value="all_employees"> All Employees </option>
+                                        {% for e in employee %}
+                                            <option value="{{e.id_number}}"> {{e.id_number}} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <div class="form-group">
+                                <label for="month"> Month </label>
+                                <select class="form-control my-2" id="month" name="month" required>
+                                    <option value="" selected> Choose... </option>
+                                        <option value="January"> January </option>
+                                        <option value="February"> February </option>
+                                        <option value="March"> March </option>
+                                        <option value="April"> April </option>
+                                        <option value="May"> May </option>
+                                        <option value="June"> June </option>
+                                        <option value="July"> July </option>
+                                        <option value="August"> August </option>
+                                        <option value="September"> September </option>
+                                        <option value="October"> October </option>
+                                        <option value="November"> November </option>
+                                        <option value="December"> December </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <div class="form-group">
+                                <label for="year"> Year </label>
+                                <input class="form-control my-2" id="year" name="year" type="text" placeholder="Year" maxlength="4" required>
+                            </div> 
+                        </div>
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <div class="form-group">
+                                <label for="cycle"> Cycle </label>
+                                <select class="form-control my-2" id="cycle" name="cycle" required>
+                                    <option value="" selected> Choose... </option>
+                                        <option value="1"> 1 </option>
+                                        <option value="2"> 2 </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <button type="submit" class="btn btn primary text-white bg-primary" style="margin-right:10px;"> Submit </button>
+                            <a class="btn btn-danger" href=""> Cancel </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+            
+    </div>
+
+        
+
+    <table class="table table-striped">
+        <thead>
+            <div class="row py-2">
+                <div class="col d-flex justify-content-start align-items-center">
+                    <h1> Payslips Summary </h1>
+                </div>
+            </div>
+            <tr>
+                <th class="table-dark" scope="col"> ID Number </th>
+                <th class="table-dark" scope="col"> Date </th>
+                <th class="table-dark" scope="col"> Cycle </th>    
+                <th class="table-dark" scope="col"> Total Pay </th>  
+                <th class="table-dark" scope="col"> Options </th>  
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for p in payslips %}
+            <tr>
+                <td> {{ p.FKid_number.id_number }} </td>
+                <td> {{ p.month }} {{ p.date_range}}, {{ p.year }} </td>
+                <td> {{ p.pay_cycle }} </td>
+                <td> {{ p.getTotal_pay }} </td>
+                <td> 
+                    <div class="row"> 
+                        <div class="col d-flex justify-content-middle align-items-center">
+                            <a class="btn btn-primary" href="{% if p.pay_cycle == 1 %}{% url 'view_payslipC1' pk=p.pk %}{% else %}{% url 'view_payslipC2' pk=p.pk %}{% endif %}"> View </a> {% csrf_token %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+        
+    </table>
+</div>
+{% endblock %}

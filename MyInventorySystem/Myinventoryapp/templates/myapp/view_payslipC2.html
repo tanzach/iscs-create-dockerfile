@@ -1,0 +1,163 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% for message in messages %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% endfor %}
+
+<div class="container">
+    <div class="header">
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center">
+                <h1> LAZAPEE </h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center">
+                <p> Payslip for {{ payslip.month }} {{ payslip.date_range }}, {{ payslip.year }} (Cycle {{ payslip.pay_cycle }}) </p>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+                <p> <b> NAME: </b> {{ employee.name }} </p>
+            </div>
+    
+            <div class="col d-flex justify-content-end align-items-center">
+                <p> <b> DATE: </b> {{ payslip.getMonth }} {{ payslip.getDate_range }}, {{ payslip.getYear }} </p>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+                <p> <b> ID NUMBER: </b> {{ employee.id_number }} </p>
+            </div>
+        
+            <div class="col d-flex justify-content-end align-items-center">
+                <p> <b> PAYSLIP ID: </b> {{ payslip.pk }} </p>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="body">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <h5> AMOUNT </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+                <h5> EARNINGS </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+                <p> Base Pay </p>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <p> {{ payslip.getRate }} </p>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+                <p> Allowances </p>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <p> {{ payslip.getEarnings_allowance }} </p>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+                <p> Overtime </p>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <p> {{ employee.getOvertime }} </p>
+            </div>
+            <div class="col"></div>
+        </div>
+        <hr> 
+
+        <div class="row">
+            <div class="col">
+                <h5> GROSS PAY </h5>
+            </div>
+            <div class="col"></div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <h5> PHP {{ payslip.getTotalGrossPay }} </h5>
+            </div>
+        </div>
+        
+        
+        <hr> 
+
+        <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+                <h5> TOTAL DEDUCTIONS </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+                <p> WITHHOLDING TAX </p>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <p> {{ payslip.getDeductions_tax }} </p>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+                <p> PHILHEALTH </p>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <p> {{ payslip.getDeductions_health }} </p>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-start align-items-center">
+                <p> SSS </p>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <p> {{ payslip.getSSS }} </p>
+            </div>
+            <div class="col"></div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h5> TOTAL DEDUCTIONS </h5>
+            </div>
+            <div class="col"></div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <h5> PHP {{ payslip.getTotal_deductions }} </h5>
+            </div>
+        </div>
+        
+        
+        <hr> 
+
+        <div class="row">
+            <div class="col">
+                <h4> NET PAY: </h4>
+            </div>
+            <div class="col"></div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <h4> PHP {{ payslip.getTotal_pay }} </h4>
+            </div>
+        </div>
+             
+
+    </div>
+    
+</div>
+{% endblock %}

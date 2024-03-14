@@ -1,0 +1,66 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-8 my-5 d-flex justify-content-center">
+
+    <div class="card" style="width: 30rem;">
+        <div class="card-header">
+            <h5 class="card-title p-2"> Create Employee </h5>
+        </div>
+        <div class="card-body">
+
+            <form method="POST" action="">{% csrf_token %}
+            
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                    <div class="row p-2">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="name"> Name: </label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="row p-2">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="idnumber"> ID Number: </label>
+                                <input type="number" class="form-control" id="idnumber" name="idnumber" required>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="row p-2"> 
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="rate"> Rate: </label>
+                                <input type="number" class="form-control" id="rate" name="rate" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-2"> 
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="allowance"> Allowance (Optional): </label>
+                                <input type="text" class="form-control" id="allowance" name="allowance" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                <button type="submit" class="mt-3 btn btn-primary"> Submit </button>
+                <a href="{% url 'homepage' %}" class="mt-3 btn btn-danger"> Back </a>
+            </form>                
+
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
